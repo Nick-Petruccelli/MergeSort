@@ -1,12 +1,16 @@
 #include "../inc/node.hpp"
 #include <cstdlib>
+#include <iostream>
 
 void Node::split(){
-	if(start == end)
+	if(start == end){
 		return;
+	}
 
+	left = new Node();
+	right = new Node();
 	left->arr = arr;
-	left->arr = arr;
+	right->arr = arr;
 
 	left->start = start;
 	left->end = start + (end - start)/2;
@@ -19,17 +23,26 @@ void Node::split(){
 int* Node::merge(){
 	if(start == end){
 		int *out = (int*)malloc(sizeof(int));
-		out[0] = start;
+		out[0] = arr[start];
 		return out;
 	}
 	int new_size = right->end - left->start + 1;
 	int *out = (int*)malloc(new_size * sizeof(int));
 	int *arr_l = left->merge();
 	int *arr_r = right->merge();
-	int l = left->start;
-	int r = right->start;
-	int i = 0;
-	while(i < new_size){
+	int l = 0;
+	int r = 0;
+	for(int i=0; i<new_size; i++){
+		if(l > left->end - left->start){
+			out[i] = arr_r[r];
+			r++;
+			continue;
+		}
+		if(r > right->end - right->start){
+			out[i] = arr_l[l];
+			l++;
+			continue;
+		}
 		if(arr_l[l] < arr_r[r]){
 			out[i] = arr_l[l];
 			l++;
@@ -37,7 +50,8 @@ int* Node::merge(){
 			out[i] = arr_r[r];
 			r++;
 		}
-		i++;
 	}
+	free(arr_l);
+	free(arr_r);
 	return out;
 }
