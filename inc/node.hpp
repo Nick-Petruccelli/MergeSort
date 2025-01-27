@@ -1,13 +1,14 @@
 #pragma once
 
-class Node{
+class Node {
 public:
-	int *arr;
-	int start;
-	int end;
-	Node *left;
-	Node *right;
+  int *arr;
+  int start;
+  int end;
+  Node *left;
+  Node *right;
 
-	int *merge();
-	void split();
+  int *merge_sort();
+  int *merge();
+  void split();
 };
