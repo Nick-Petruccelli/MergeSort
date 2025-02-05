@@ -12,15 +12,6 @@ void init_array(int *arr, int count) {
   }
 }
 
-int *merge_sort_split_merge(int *arr, int count) {
-  Node init;
-  init.arr = arr;
-  init.start = 0;
-  init.end = count - 1;
-  init.split();
-  return init.merge();
-}
-
 int *merge_sort(int *arr, int count) {
   Node init;
   init.arr = arr;
@@ -40,26 +31,10 @@ int main(int argc, char *args[]) {
   int start, end;
   double cpu_time_used;
   start = clock();
-  int *sorted_arr = merge_sort_split_merge(arr, num_count);
-  end = clock();
-  cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-  std::cout << "-----------------------------------" << std::endl;
-  std::cout << "Split And Merge" << std::endl;
-  std::cout << "-----------------------------------" << std::endl;
-  std::cout << "Start: " << start << std::endl;
-  std::cout << "End: " << end << std::endl;
-  std::cout << "Time: " << cpu_time_used << std::endl;
-  start = clock();
-
   int *sorted_arr_2 = merge_sort(arr, num_count);
   end = clock();
   cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-  std::cout << "-----------------------------------" << std::endl;
-  std::cout << "Wambo Combo" << std::endl;
-  std::cout << "-----------------------------------" << std::endl;
-  std::cout << "Start: " << start << std::endl;
-  std::cout << "End: " << end << std::endl;
-  std::cout << "Time: " << cpu_time_used << std::endl;
+  std::cout << num_count << ", " << cpu_time_used << std::endl;
 
   return 0;
 }
